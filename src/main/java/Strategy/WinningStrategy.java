@@ -12,57 +12,55 @@ public class WinningStrategy {
     HashMap<Character, Integer> leftDiagonalMap = new HashMap<>();
     HashMap<Character, Integer> rightDiagonalMap = new HashMap<>();
 
-    public boolean checkWinner(Board board, Move move){
+    public boolean checkWinner(Board board, Move move) {
         int row = move.getCell().getRow();
         int col = move.getCell().getCol();
         char character = move.getPlayer().getSymbol().getCharacter();
 
-        
         // to Check Rows
-        if(!rowMaps.containsKey(row)) {
+        if (!rowMaps.containsKey(row)) {
             rowMaps.put(row, new HashMap<>());
         }
-        HashMap<Character,Integer> curRowMap = rowMaps.get(row);
-        if(!curRowMap.containsKey(character)){
-            curRowMap.put(character,1);
+        HashMap<Character, Integer> curRowMap = rowMaps.get(row);
+        if (!curRowMap.containsKey(character)) {
+            curRowMap.put(character, 1);
+        } else {
+            curRowMap.put(character, curRowMap.get(character) + 1);
         }
-        else{
-            curRowMap.put(character,curRowMap.get(character)+1);
-        }
-        if(curRowMap.get(character) == board.getSize()) return true;
-
+        if (curRowMap.get(character) == board.getSize())
+            return true;
 
         // to Check Columns
-        if(!colMaps.containsKey(col)) {
+        if (!colMaps.containsKey(col)) {
             colMaps.put(col, new HashMap<>());
         }
-        HashMap<Character,Integer> curColMap = colMaps.get(col);
-        if(!curColMap.containsKey(character)){
-            curColMap.put(character,1);
+        HashMap<Character, Integer> curColMap = colMaps.get(col);
+        if (!curColMap.containsKey(character)) {
+            curColMap.put(character, 1);
+        } else {
+            curColMap.put(character, curColMap.get(character) + 1);
         }
-        else{
-            curColMap.put(character,curColMap.get(character)+1);
-        }
-        if(curColMap.get(character) == board.getSize()) return true;
+        if (curColMap.get(character) == board.getSize())
+            return true;
 
-
-        //for the left diagonal
-        if(row == col) {
-            if(!leftDiagonalMap.containsKey(character)){
-                leftDiagonalMap.put(character,1);
-            }
-            else leftDiagonalMap.put(character,leftDiagonalMap.get(character)+1);
-            if(leftDiagonalMap.get(character)==board.getSize()) return true;
+        // for the left diagonal
+        if (row == col) {
+            if (!leftDiagonalMap.containsKey(character)) {
+                leftDiagonalMap.put(character, 1);
+            } else
+                leftDiagonalMap.put(character, leftDiagonalMap.get(character) + 1);
+            if (leftDiagonalMap.get(character) == board.getSize())
+                return true;
         }
 
-
-        //for right Diagonal
-        if(row+col == board.getSize()-1) {
-            if(!rightDiagonalMap.containsKey(character)){
-                rightDiagonalMap.put(character,1);
-            }
-            else rightDiagonalMap.put(character,rightDiagonalMap.get(character)+1);
-            if(rightDiagonalMap.get(character)==board.getSize()) return true;
+        // for right Diagonal
+        if (row + col == board.getSize() - 1) {
+            if (!rightDiagonalMap.containsKey(character)) {
+                rightDiagonalMap.put(character, 1);
+            } else
+                rightDiagonalMap.put(character, rightDiagonalMap.get(character) + 1);
+            if (rightDiagonalMap.get(character) == board.getSize())
+                return true;
         }
 
         return false;
